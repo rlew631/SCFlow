@@ -1,5 +1,5 @@
-from .loss import LOSSES, build_loss
-from .encoder import ENCODERS, build_encoder
+# from .loss import LOSSES, build_loss
+# from .encoder import ENCODERS, build_encoder
 from .decoder import DECODERS, build_decoder
 from .backbone import BACKBONES, build_backbone
 from .head import HEAD, build_head

@@ -1,6 +1,6 @@
-_base_ = '../refine_datasets/ycbv_real.py'
+_base_ = '../refine_datasets/ipd_real.py'
 
-dataset_root = 'data/ycbv'
+dataset_root = 'data/ipd'
 
 symmetry_types = { # 1-base
     'cls_13': {'z':0},
@@ -106,10 +106,10 @@ model = dict(
     freeze_encoder=False,
     train_cfg=dict(),
     test_cfg=dict(iters=8),
-    init_cfg=dict(
-        type='Pretrained',
-        checkpoint='work_dirs/raft_8x2_100k_flyingthings3d_400x720_convertered.pth'
-    )
+    # init_cfg=dict(
+    #     type='Pretrained',
+    #     checkpoint='work_dirs/raft_8x2_100k_flyingthings3d_400x720_convertered.pth'
+    # )
 )
 
 
@@ -143,4 +143,5 @@ log_config=dict(interval=50,
                 hooks=[
                     dict(type='TextLoggerHook'),
                     dict(type='TensorboardImgLoggerHook', interval=100, image_format='HWC')])
-work_dir = 'work_dirs/scflow_ycbv_real'
+work_dir = 'work_dirs/scflow_ipd_real'
+

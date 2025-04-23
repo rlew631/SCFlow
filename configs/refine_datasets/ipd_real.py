@@ -1,14 +1,18 @@
-dataset_root = 'data/ycbv'
+dataset_root = 'data/ipd'
 
-CLASS_NAMES= ('master_chef_can', 'cracker_box',
-            'sugar_box', 'tomato_soup_can',
-            'mustard_bottle', 'tuna_fish_can',
-            'pudding_box', 'gelatin_box',
-            'potted_meat_can', 'banana',
-            'pitcher_base', 'bleach_cleanser',
-            'bowl', 'mug', 'power_drill', 
-            'wood_block', 'scissors', 'large_marker',
-            'large_clamp', 'extra_large_clamp', 'foam_brick')
+# CLASS_NAMES= ('master_chef_can', 'cracker_box',
+#             'sugar_box', 'tomato_soup_can',
+#             'mustard_bottle', 'tuna_fish_can',
+#             'pudding_box', 'gelatin_box',
+#             'potted_meat_can', 'banana',
+#             'pitcher_base', 'bleach_cleanser',
+#             'bowl', 'mug', 'power_drill', 
+#             'wood_block', 'scissors', 'large_marker',
+#             'large_clamp', 'extra_large_clamp', 'foam_brick')
+
+CLASS_NAMES= ('00','01','04','08','10','11','14','18','19','20')
+#double check that this is in the correct order
+
 normalize_mean = [0., 0., 0., ]
 normalize_std = [255., 255., 255.]
 image_scale = 256

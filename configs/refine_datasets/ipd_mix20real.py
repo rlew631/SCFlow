@@ -1,14 +1,19 @@
-dataset_root = 'data/ycbv'
+dataset_root = 'data/ipd'
 
-CLASS_NAMES= ('master_chef_can', 'cracker_box',
-            'sugar_box', 'tomato_soup_can',
-            'mustard_bottle', 'tuna_fish_can',
-            'pudding_box', 'gelatin_box',
-            'potted_meat_can', 'banana',
-            'pitcher_base', 'bleach_cleanser',
-            'bowl', 'mug', 'power_drill', 
-            'wood_block', 'scissors', 'large_marker',
-            'large_clamp', 'extra_large_clamp', 'foam_brick')
+# CLASS_NAMES= ('master_chef_can', 'cracker_box',
+#             'sugar_box', 'tomato_soup_can',
+#             'mustard_bottle', 'tuna_fish_can',
+#             'pudding_box', 'gelatin_box',
+#             'potted_meat_can', 'banana',
+#             'pitcher_base', 'bleach_cleanser',
+#             'bowl', 'mug', 'power_drill', 
+#             'wood_block', 'scissors', 'large_marker',
+#             'large_clamp', 'extra_large_clamp', 'foam_brick')
+
+CLASS_NAMES= ('00','01','04','08','10','11','14','18','19','20')
+#double check that this is in the correct order
+
+
 normalize_mean = [0., 0., 0., ]
 normalize_std = [255., 255., 255.]
 image_scale = 256
@@ -71,7 +76,7 @@ train_pipeline = [
 
 test_pipeline = [
     dict(type='LoadImages', color_type='unchanged', file_client_args=file_client_args),
-    dict(type='ComputeBbox', mesh_dir=dataset_root + '/models_eval', clip_border=False, filter_invalid=False),
+    dict(type='ComputeBbox', mesh_dir=dataset_root + '/models_eval', clip_border=False),
     dict(type='Crop', 
         size_range=(1.1, 1.1),
         crop_bbox_field='ref_bboxes', 
@@ -97,16 +102,16 @@ test_pipeline = [
 
 data = dict(
     samples_per_gpu=24,
+    workers_per_gpu=16,
     test_samples_per_gpu=1,
-    workers_per_gpu=8,
     train=dict(
         type='ConcatDataset',
-        ratios=[1., 2.],
+        ratios=[100., 1.],
         dataset_configs=[
             dict(type='SuperviseTrainDataset',
                 data_root=dataset_root + '/train_real',
                 gt_annots_root=dataset_root + '/train_real',
-                image_list=dataset_root + '/image_lists/train_real.txt',
+                image_list=dataset_root + '/image_lists/train_real_20.txt',
                 keypoints_json=dataset_root + '/keypoints/bbox.json',
                 pipeline=train_pipeline,
                 class_names=CLASS_NAMES,
@@ -148,7 +153,7 @@ data = dict(
         type='RefineDataset',
         data_root=dataset_root + '/test',
         ref_annots_root='data/initial_poses/ycbv_posecnn',
-        image_list=dataset_root + '/image_lists/test_bop19.txt',
+        image_list=dataset_root + '/image_lists/test.txt',
         keypoints_json=dataset_root + '/keypoints/bbox.json',
         pipeline=test_pipeline,
         class_names=CLASS_NAMES,

@@ -116,7 +116,9 @@ class Renderer(nn.Module):
         #     self.image_renderer.to(device)
         # if self.mask_renderer is not None:
         #     self.mask_renderer.to(device)
+        print(f"self.meshes: {self.meshes}")
         for k in self.meshes:
+            print(f"k: {k}")
             self.meshes[k] = self.meshes[k].to(device)
     
     def load_meshes(self, mesh_dir, ext='.ply'):

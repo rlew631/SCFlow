@@ -7,6 +7,7 @@ import mmcv
 import torch
 import random
 import numpy as np
+from mmcv.utils import Registry, build_from_cfg
 from mmcv import Config, DictAction
 from torch.utils.data import DataLoader, DistributedSampler, RandomSampler, SequentialSampler
 from mmcv.runner import init_dist, get_dist_info, load_checkpoint
@@ -108,6 +109,7 @@ if __name__ == '__main__':
     dataset = build_dataset(cfg.data.test)
     dataloader = build_dataloader(cfg, dataset, distributed, shuffle=False)
     model = build_refiner(cfg.model)
+    # model = build_from_cfg(cfg.model, Registry('refiner'))
     checkpoint = load_checkpoint(model, args.checkpoint)
         
     
